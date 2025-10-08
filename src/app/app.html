@@ -1,5 +1,9 @@
-<app-header></app-header>
+<app-header />
 
-<ul>
-    <app-user/>
-</ul>
+<main>
+  <ul id="users">
+    <li>
+      <app-user [avatar]="users[0].avatar" [name]="users[0].name" />
+    </li>
+  </ul>
+</main>
