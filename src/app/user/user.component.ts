@@ -20,11 +20,11 @@ export class UserComponent {
   id = input.required<string>();
   avatar = input<string>();
   name = input.required<string>();
-  select = output<string>()
+  select = output<{ id: string, name: string }>()
 
   imagePath = computed(() => 'assets/users/' + this.avatar());
 
   onSelectUser() {
-    this.select.emit(this.id());
-   }
+    this.select.emit({ id: this.id(), name: this.name() });
+  }
 }

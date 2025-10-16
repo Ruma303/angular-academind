@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
+import { TaskComponent } from './task/task';
 import { DUMMY_USERS } from './dummy-users';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserComponent],
+  imports: [HeaderComponent, UserComponent, NgFor, TaskComponent],
   template: `
   <app-header />
   <main>
     <ul id="users">
-      <li>
+      <li *ngFor="let user of users" >
         <app-user
-        [id]="users[0].id"
-        [avatar]="users[0].avatar"
-        [name]="users[0].name"
-        (select)="onSelectUser($event)"
+          [id]="user.id"
+          [avatar]="user.avatar"
+          [name]="user.name"
+          (select)="onSelectUser($event)"
         />
       </li>
+    </ul>
+
+    <ul id="tasks">
+        <app-task
+          [name]="task.name"
+        />
     </ul>
   </main>
   `,
@@ -26,8 +33,10 @@ import { DUMMY_USERS } from './dummy-users';
 })
 export class App {
   users = DUMMY_USERS;
+  taskString = "'s Task"
+  task = { name: DUMMY_USERS[0].name + this.taskString };
 
-  onSelectUser(userId: string) {
-    console.log(userId);
+  onSelectUser(event: { id: string, name :string }) {
+    this.task.name = event.name + this.taskString;
    }
 }
