@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -17,10 +17,14 @@ import { Component, input, computed } from '@angular/core';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  id = input.required<string>();
   avatar = input<string>();
-  name = input.required<string>(); // Con required non possiamo passare un valore default
+  name = input.required<string>();
+  select = output<string>()
 
   imagePath = computed(() => 'assets/users/' + this.avatar());
 
-  onSelectUser() { }
+  onSelectUser() {
+    this.select.emit(this.id());
+   }
 }

@@ -12,7 +12,12 @@ import { DUMMY_USERS } from './dummy-users';
   <main>
     <ul id="users">
       <li>
-        <app-user [avatar]="users[0].avatar" [name]="users[0].name" />
+        <app-user
+        [id]="users[0].id"
+        [avatar]="users[0].avatar"
+        [name]="users[0].name"
+        (select)="onSelectUser($event)"
+        />
       </li>
     </ul>
   </main>
@@ -21,4 +26,8 @@ import { DUMMY_USERS } from './dummy-users';
 })
 export class App {
   users = DUMMY_USERS;
+
+  onSelectUser(userId: string) {
+    console.log(userId);
+   }
 }
