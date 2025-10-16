@@ -3,7 +3,17 @@ import { Component, input, computed } from '@angular/core';
 @Component({
   selector: 'app-user',
   imports: [],
-  templateUrl: './user.component.html',
+  template: `
+  <div>
+  <button (click)="onSelectUser()">
+    <img
+      [src]="imagePath()"
+      [alt]="name()"
+    >
+    <span>{{ name() }}</span>
+  </button>
+</div>
+  `,
   styleUrl: './user.component.css'
 })
 export class UserComponent {
