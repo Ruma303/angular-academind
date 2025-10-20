@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
-import { TaskComponent } from './task/task';
 import { DUMMY_USERS } from './dummy-users';
 import { NgFor } from '@angular/common';
+import { Tasks } from "./tasks/tasks";
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserComponent, NgFor, TaskComponent],
+  imports: [HeaderComponent, UserComponent, NgFor, Tasks],
   template: `
   <app-header />
   <main>
@@ -22,11 +22,7 @@ import { NgFor } from '@angular/common';
       </li>
     </ul>
 
-    <ul id="tasks">
-        <app-task
-          [name]="task.name"
-        />
-    </ul>
+    <app-tasks />
   </main>
   `,
   styleUrl: './app.css'
