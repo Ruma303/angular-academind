@@ -5,8 +5,8 @@ import { Component, input } from '@angular/core';
   imports: [],
   template: `
     <article>
-      <h2>TIME</h2>
-      <p>{{ name() }}</p>
+      <h2>{{ dueDate() }}</h2>
+     <p>{{ title() }}</p>
       <p>SUMMARY</p>
       <p class="actions">
         <button>Complete</button>
@@ -19,5 +19,6 @@ import { Component, input } from '@angular/core';
   styleUrl: './task.css'
 })
 export class TaskComponent {
-  name = input.required<string>();
+  title = input.required<string>();
+  dueDate = input<string>();
 }

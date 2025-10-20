@@ -2,37 +2,36 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './dummy-users';
-import { NgFor } from '@angular/common';
 import { Tasks } from "./tasks/tasks";
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserComponent, NgFor, Tasks],
+  imports: [HeaderComponent, UserComponent, Tasks],
   template: `
-  <app-header />
-  <main>
-    <ul id="users">
-      <li *ngFor="let user of users" >
-        <app-user
-          [id]="user.id"
-          [avatar]="user.avatar"
-          [name]="user.name"
-          (select)="onSelectUser($event)"
-        />
-      </li>
-    </ul>
+    <app-header />
+    <main>
+      <ul id="users">
+        @for (user of users; track user.id) {
+          <li>
+            <app-user [id]="user.id" [avatar]="user.avatar" [name]="user.name" (select)="onSelectUser($event)" />
+          </li>
+        }
+      </ul>
 
-    <app-tasks />
-  </main>
+      @if (selectedUser) {
+        <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name"/>
+      } @else {
+        <p id="fallback">Select a user to see their tasks!</p>
+      }
+    </main>
   `,
   styleUrl: './app.css'
 })
 export class App {
   users = DUMMY_USERS;
-  taskString = "'s Task"
-  task = { name: DUMMY_USERS[0].name + this.taskString };
+  selectedUser: { id: string, name: string } | null = null;
 
-  onSelectUser(event: { id: string, name :string }) {
-    this.task.name = event.name + this.taskString;
-   }
+  onSelectUser(event: { id: string, name: string }) {
+    this.selectedUser = event;
+  }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task";
+import { DUMMY_TASKS } from '../dummy-tasks';
 
 @Component({
   selector: 'app-tasks',
@@ -17,22 +18,23 @@ import { TaskComponent } from "./task/task";
 
     <main>
       <ul>
+      @for (task of selectedUserTasks; track task.id) {
         <li>
-          <app-task [name]="'Default task'"/>
-        </li> <li>
-          <app-task [name]="'Default task'"/>
-        </li> <li>
-          <app-task [name]="'Default task'"/>
-        </li> <li>
-          <app-task [name]="'Default task'"/>
+          <app-task [title]="task.title" [dueDate]="task.dueDate" />
         </li>
-
-      </ul>
+      }
+    </ul>
     </main>
-    </section>
+  </section>
   `,
   styleUrl: './tasks.css'
 })
 export class Tasks {
+  tasks = DUMMY_TASKS;
+  @Input({ required: true }) userId!: string;
+  @Input({ required: true }) name!: string;
 
+  get selectedUserTasks() {
+    return this.tasks.filter(task => task.userId === this.userId);
+  }
 }
