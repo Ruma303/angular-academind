@@ -1,4 +1,6 @@
-export const DUMMY_TASKS = [
+import type { TaskModel } from './tasks/task/task.model';
+
+export const DUMMY_TASKS : TaskModel[] = [
   {
     id: 't1',
     userId: 'u1',
