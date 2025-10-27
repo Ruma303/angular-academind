@@ -63,8 +63,8 @@ export class TasksComponent {
   }
 
   onAddTask(task: NewTaskType) {
-    this.tasks.push({
-      id: Math.random().toString(),
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
       title: task.title,
       summary: task.summary,
       dueDate: task.dueDate,
