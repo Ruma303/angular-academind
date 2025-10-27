@@ -14,7 +14,7 @@ import { TasksComponent } from './tasks/tasks';
       <ul id="users">
         @for (user of users; track user.id) {
           <li>
-            <app-user [user]="user" (select)="onSelectUser($event)" />
+            <app-user [user]="user" [selected]="selectedUserId === user.id" (select)="onSelectUser($event)" />
           </li>
         }
       </ul>
@@ -30,6 +30,10 @@ import { TasksComponent } from './tasks/tasks';
 export class App {
   users: UserModel[] = DUMMY_USERS;
   selectedUser: UserModel | null = null;
+
+  get selectedUserId() {
+    return this.users.find(user => user.id === this.selectedUser?.id)?.id;
+  }
 
   onSelectUser(user: UserModel) {
     this.selectedUser = user;

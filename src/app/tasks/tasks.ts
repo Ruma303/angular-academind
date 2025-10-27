@@ -1,18 +1,24 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task";
 import { DUMMY_TASKS } from '../dummy-tasks';
-import type { TaskModel } from './task/task.model';
+import type { NewTaskType, TaskModel } from './task/task.model';
 import { UserModel } from '../user/user.model';
+import { NewTaskComponent } from "./new-task/new-task";
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   template: `
-  <section>
+
+  @if (isAddingTask) {
+    <app-new-task (cancel)="onCancelledTask()" (add)="onAddTask($event)"/>
+  }
+
+  <section id="tasks">
     <header>
-      <h2>Tasks</h2>
+      <h2>{{ user.name }}'s Tasks</h2>
       <menu>
-        <button>Add Task</button>
+        <button (click)="onStartAddTask()">Add Task</button>
         <button>Remove Task</button>
       </menu>
     </header>
@@ -21,7 +27,12 @@ import { UserModel } from '../user/user.model';
       <ul>
       @for (task of selectedUserTasks; track task.id) {
         <li>
-          <app-task [title]="task.title" [dueDate]="task.dueDate" [summary]="task.summary" />
+          <app-task
+            [title]="task.title"
+            [dueDate]="task.dueDate"
+            [summary]="task.summary" [id]="task.id"
+            (complete)="onCompleteTask($event)"
+          />
         </li>
       }
     </ul>
@@ -33,8 +44,32 @@ import { UserModel } from '../user/user.model';
 export class TasksComponent {
   tasks: TaskModel[] = DUMMY_TASKS;
   @Input({ required: true }) user!: UserModel;
+  isAddingTask = false;
 
   get selectedUserTasks(): TaskModel[] {
     return this.tasks.filter(task => task.userId === this.user.id);
+  }
+
+  onCompleteTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id != id);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCancelledTask() {
+    this.isAddingTask = false;
+  }
+
+  onAddTask(task: NewTaskType) {
+    this.tasks.push({
+      id: Math.random().toString(),
+      title: task.title,
+      summary: task.summary,
+      dueDate: task.dueDate,
+      userId: this.user.id
+    });
+    this.isAddingTask = false;
   }
 }

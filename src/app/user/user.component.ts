@@ -6,7 +6,7 @@ import type { UserModel } from './user.model';
   imports: [],
   template: `
   <div>
-    <button (click)="onSelectUser()">
+    <button [class.active]="selected()" (click)="onSelectUser()">
       <img [src]="imagePath()" [alt]="user().name">
       <span>{{ user().name }}</span>
     </button>
@@ -16,6 +16,7 @@ import type { UserModel } from './user.model';
 })
 export class UserComponent {
   user = input.required<UserModel>();
+  selected = input.required<boolean>();
   select = output<UserModel>();
 
   imagePath = computed(() => 'assets/users/' + (this.user()?.avatar ?? 'default.jpg'));

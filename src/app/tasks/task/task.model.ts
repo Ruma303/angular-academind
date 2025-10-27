@@ -5,3 +5,9 @@ export type TaskModel = {
   summary: string;
   dueDate: string;
 }
+
+export type NewTaskType = {
+  title: string;
+  summary: string;
+  dueDate: string;
+}
