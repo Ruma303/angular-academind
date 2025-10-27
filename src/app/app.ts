@@ -31,6 +31,10 @@ export class App {
   users: UserModel[] = DUMMY_USERS;
   selectedUser: UserModel | null = null;
 
+  constructor() {
+    this.selectedUser = this.users[0];
+  }
+
   get selectedUserId() {
     return this.users.find(user => user.id === this.selectedUser?.id)?.id;
   }

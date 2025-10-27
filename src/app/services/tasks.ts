@@ -30,21 +30,34 @@ export class TasksService {
     },
   ]
 
+  constructor() {
+    const tasks = localStorage.getItem('tasks');
+    if (tasks) {
+      this.tasks = JSON.parse(tasks);
+    }
+  }
+
+  private saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
   getUserTasks(userId: string) {
     return this.tasks.filter(task => task.userId === userId);
   }
 
   addTask(task: NewTaskModel, userId: string) {
-      this.tasks.unshift({
-        id: new Date().getTime().toString(),
-        userId: userId,
-        title: task.title,
-        summary: task.summary,
-        dueDate: task.dueDate,
-      });
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: userId,
+      title: task.title,
+      summary: task.summary,
+      dueDate: task.dueDate,
+    });
+    this.saveTasks();
   }
 
   removeTask(taskId: string) {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
+    this.saveTasks();
   }
 }
