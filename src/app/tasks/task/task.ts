@@ -1,11 +1,8 @@
 import { Component, input, inject } from '@angular/core';
-import { Card } from "../../shared/card/card";
-import { DatePipe, TitleCasePipe } from '@angular/common';
 import { TasksService } from '../../services/tasks';
 
 @Component({
   selector: 'app-task',
-  imports: [Card, DatePipe, TitleCasePipe],
   template: `
   <app-card>
     <article>
@@ -21,7 +18,7 @@ import { TasksService } from '../../services/tasks';
   </app-card>
   `,
   styleUrl: './task.css',
-  standalone: true
+  standalone: false
 })
 export class TaskComponent {
   title = input.required<string>();

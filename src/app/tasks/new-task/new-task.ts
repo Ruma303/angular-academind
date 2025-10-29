@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { TasksService } from '../../services/tasks';
 
 @Component({
   selector: 'app-new-task',
-  standalone: true,
-  imports: [FormsModule],
+  standalone: false,
   template: `
     <div class="backdrop" (click)="onCancel()"></div>
     <dialog open (click)="$event.stopPropagation()">

@@ -1,10 +1,9 @@
 import { Component, input, computed, output } from '@angular/core';
 import type { UserModel } from './user.model';
-import { Card } from "../shared/card/card";
+import { CardComponent } from "../shared/card/card";
 
 @Component({
   selector: 'app-user',
-  imports: [Card],
   template: `
   <app-card>
     <button [class.active]="selected()" (click)="onSelectUser()">
@@ -13,7 +12,8 @@ import { Card } from "../shared/card/card";
     </button>
   </app-card>
   `,
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
+  standalone: false
 })
 export class UserComponent {
   user = input.required<UserModel>();
