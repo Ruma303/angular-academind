@@ -21,6 +21,7 @@ import { TasksService } from '../../services/tasks';
   </app-card>
   `,
   styleUrl: './task.css',
+  standalone: true
 })
 export class TaskComponent {
   title = input.required<string>();
