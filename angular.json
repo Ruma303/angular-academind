@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-academind": {
+    "angular-debugging": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -55,10 +55,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-academind:build:production"
+              "buildTarget": "angular-debugging:build:production"
             },
             "development": {
-              "buildTarget": "angular-academind:build:development"
+              "buildTarget": "angular-debugging:build:development"
             }
           },
           "defaultConfiguration": "development"
